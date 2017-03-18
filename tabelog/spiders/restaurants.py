@@ -11,17 +11,30 @@ from . import selectors
 class RestaurantSpider(scrapy.Spider):
 
     name = "restaurants"
-    allowed_domains = [ 'tabelog.com' ]
-    start_urls = [ 'https://tabelog.com/en/' ]
+    allowed_domains = ['tabelog.com']
 
+    def __init__(self, prefecture=None, *args, **kwargs):
+        super(RestaurantSpider, self).__init__(*args, **kwargs)
+        # NOTE: Right now it will only work if we send
+        #       the specific prefecture in the terminal
+        if prefecture:
+            self.specific_prefecture_chosen = True
+            self.start_urls = [
+                'https://tabelog.com/en/{}/rstLst/'.format(prefecture)
+            ]
+        else:
+            self.specific_prefecture_chosen = False
+            self.start_urls = ['https://tabelog.com/en/']
+
+    # def parse(self, response):
+    #     for prefecture_link in response.css(selectors.prefectures).extract():
+    #         yield scrapy.Request(
+    #             response.urljoin(prefecture_link + 'rstLst/'),
+    #             callback=self._parse_prefecture_restaurants
+    #         )
+
+    # def _parse_prefecture_restaurants(self, response):
     def parse(self, response):
-        for prefecture_link in response.css(selectors.prefectures).extract():
-            yield scrapy.Request(
-                response.urljoin(prefecture_link + 'rstLst/'),
-                callback=self._parse_prefecture_restaurants
-            )
-
-    def _parse_prefecture_restaurants(self, response):
         for restaurant_link in response.css(selectors.restaurants).extract():
             yield scrapy.Request(
                 response.urljoin(restaurant_link),
@@ -33,7 +46,8 @@ class RestaurantSpider(scrapy.Spider):
             next_page = response.urljoin(next_page)
             yield scrapy.Request(
                 next_page,
-                callback=self._parse_prefecture_restaurants
+                # callback=self._parse_prefecture_restaurants
+                callback=self.parse
             )
 
     def _parse_restaurant(self, response):
