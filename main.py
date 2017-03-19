@@ -37,7 +37,7 @@ class Main(object):
                 self.arguments.scrapy_command,
                 self.arguments.prefecture
             ))
-        return(self.SCRAPY_COMMAND)
+        return(self.arguments.scrapy_command)
 
     def _get_arguments(self, argv):
         try:
