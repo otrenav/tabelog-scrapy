@@ -20,18 +20,20 @@ implemented using Python 2.7 and designed to work on Ubuntu 16.04.
        - `$ cd scrapy-tabelog`
    - Execute setup script
        - `$ bash setup.sh`
+       - If this doesn't seem to work, you can execute each line
+         manually in the terminal. This is just to make it easier.
 3. Execute main function
    - `$ python main.py ...` (see usage section)
 
 ## Usage
 
-## Local environment
+### Local environment
 
 `$ python main.py --prefecture=<prefecture>`
 
 The `prefecture` argument is optional.
 
-## Google Compute Engine
+### Google Compute Engine
 
 ```
 $ python main.py --prefecture=<prefecture>
@@ -45,8 +47,8 @@ The `prefecture` argument is optional. The `project`, `zone`, and
 be supplied. These should be the parameters you use to create the
 Google Compute Engine instance from step 1.
 
-> Warniing: Google Cloud arguments are not checked to be valid within
-> so you must be careful they are correct when using them.
+> Warniing: Google Cloud arguments are not checked to be valid
+> within so you must be careful they are correct when using them.
 
 ## Resources
 
