@@ -9,11 +9,11 @@ implemented using Python 2.7 and designed to work on Ubuntu 16.04.
 
 ## Instructions
 
-1. Create Google Compute instance with
+1. Create Google Compute instance with defaults but change to:
    - Ubuntu 16.04 LTS with 10 GB
-   - Allow HTTP/HTTPS traffic
    - All full access to all Cloud APIs
-2. Setup environment
+   - Allow HTTP/HTTPS traffic
+2. Setup environment:
    - Clone repository
        - `$ git clone https://github.com/otrenav/scrapy-tabelog`
    - Change directory to repository
@@ -22,7 +22,7 @@ implemented using Python 2.7 and designed to work on Ubuntu 16.04.
        - `$ bash setup.sh`
        - If this doesn't seem to work, you can execute each line
          manually in the terminal. This is just to make it easier.
-3. Execute main function
+3. Execute main function:
    - `$ python main.py ...` (see usage section)
 
 ## Usage
