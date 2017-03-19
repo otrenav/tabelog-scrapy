@@ -99,6 +99,16 @@ increase billing and is not recommended.
 > Warning: Google Cloud arguments are not checked to be valid
 > within so you must be careful they are correct when using them.
 
+## Making the repository private
+
+This repository is currently public so that we can clone it within the
+GCE instance without having to make any configurations regardin SSH
+keys. However, if we would like to keep the repository private, it can
+be done and we would have to make an extra setup step for each GCE
+instance. Since this is not desired to keep the code as easy to use
+as possible, it's not currently implemented this way, and the repository
+is kept public.
+
 ## Resources
 
 - https://cloud.google.com/compute/docs/quickstart-linux
