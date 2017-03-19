@@ -29,7 +29,10 @@ class Arguments(object):
 
     @property
     def prefecture(self):
-        return(self.arguments.get('--prefecture', None))
+        prefecture = self.arguments.get('--prefecture', None)
+        if prefecture:
+            return(prefecture.lower())
+        return(prefecture)
 
     @property
     def file(self):
@@ -46,6 +49,10 @@ class Arguments(object):
         return(self.SCRAPY_COMMAND + self.file)
 
     def _check_google_cloud_arguments(self):
+        self._check_all_arguments_were_sent()
+        self._check_arguments_are_valid()
+
+    def _check_all_arguments_were_sent(self):
         google_cloud_arguments = [
             a in self.arguments.keys()
             for a in constants.TOGETHER
@@ -57,3 +64,7 @@ class Arguments(object):
                     'Error: if any Google Cloud parameter ' +
                     'is sent, all must be sent.\n'
                 )
+
+    def _check_arguments_are_valid(self):
+        # TODO: Implement this if necessary
+        pass
