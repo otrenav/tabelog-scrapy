@@ -17,7 +17,8 @@ The code is also able to run locally. If only a few prefectures are needed
 this may be the best approach. If for some reason the laptop's IP gets
 blocked, you may fallback to the GCE approach.
 
-- Omar Trejo
+- Developed by Omar Trejo
+- Developed for Dr. Teshima
 - March, 2017
 
 ## Instructions
