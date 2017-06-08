@@ -22,6 +22,13 @@ class RestaurantSpider(scrapy.Spider):
             for p in prefectures
             for c in constants.categories
         ]
+
+        print(50 * "*")
+        print(len(self.start_urls))
+        print(self.start_urls)
+        self.all_urls = []
+        print(50 * "*")
+
         super(RestaurantSpider, self).__init__(*args, **kwargs)
 
     def _get_prefectures(self, prefecture):
@@ -31,6 +38,12 @@ class RestaurantSpider(scrapy.Spider):
 
     def parse(self, response):
         restaurants = response.css(selectors.restaurants).extract()
+
+        self.all_urls += restaurants
+        with open('all_urls.txt', 'w') as thefile:
+            for url in self.all_urls:
+                thefile.write("{}\n".format(url))
+
         for restaurant in restaurants:
             yield scrapy.Request(
                 response.urljoin(restaurant),

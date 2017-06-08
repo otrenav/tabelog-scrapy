@@ -11,16 +11,19 @@ next_page = '.c-pagination__target--next::attr(href)'
 # Scraping selectors
 #
 
+# Headers
 shop_headers = "//*[@id='anchor-rd-detail']/section[1]/table/tbody/tr/th/text()"
 seats_headers = "//*[@id='anchor-rd-detail']/section[2]/table/tbody/tr/th/text()"
 menu_headers = "//*[@id='anchor-rd-detail']/section[3]/table/tbody/tr/th/text()"
 features_headers = "//*[@id='anchor-rd-detail']/section[4]/table/tbody/tr/th/text()"
 
+# Data
 shop_data = "//*[@id='anchor-rd-detail']/section[1]/table/tbody/tr/td[descendant-or-self::text()]"
 seats_data = "//*[@id='anchor-rd-detail']/section[2]/table/tbody/tr/td[descendant-or-self::text()]"
 menu_data = "//*[@id='anchor-rd-detail']/section[3]/table/tbody/tr/td[descendant-or-self::text()]"
 features_data = "//*[@id='anchor-rd-detail']/section[4]/table/tbody/tr/td[descendant-or-self::text()]"
 
+# Top
 top_name = '/html/body/article/header/div[1]/div/div[1]/h2/a/text()'
 top_prefecture = '/html/body/article/header/div[1]/div/div[2]/div/div/dl[1]/dd/div/p/a/span/text()'
 top_category = '/html/body/article/header/div[1]/div/div[2]/div/div/dl[2]/dd/div[1]/p/a/span/text()'
