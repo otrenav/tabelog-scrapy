@@ -20,6 +20,9 @@ def store_results(arguments):
         blob = bucket.blob(arguments.file)
         blob.upload_from_filename(arguments.file)
 
+        blob = bucket.blob("all_urls.csv")
+        blob.upload_from_filename("all_urls.csv")
+
 
 def get_client():
     try:

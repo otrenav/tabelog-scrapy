@@ -6,38 +6,44 @@ from slugify import slugify
 from bs4 import BeautifulSoup
 
 import selectors
+import constants
 
 
 class RestaurantSpider(scrapy.Spider):
 
     name = 'restaurants'
+    base_url = 'https://tabelog.com/en/'
     allowed_domains = ['tabelog.com']
-    start_urls = ['https://tabelog.com/en/']
 
     def __init__(self, prefecture=None, *args, **kwargs):
+        prefectures = self._get_prefectures(prefecture)
+        self.start_urls = [
+            '{}{}/rstLst/{}/?SrtT=rt&Srt=D'.format(self.base_url, p, c)
+            for p in prefectures
+            for c in constants.categories
+        ]
+
+        print(50 * "*")
+        print(len(self.start_urls))
+        print(self.start_urls)
+        self.all_urls = []
+        print(50 * "*")
+
         super(RestaurantSpider, self).__init__(*args, **kwargs)
-        self.prefecture = prefecture
+
+    def _get_prefectures(self, prefecture):
+        if prefecture:
+            return([prefecture])
+        return(constants.prefectures)
 
     def parse(self, response):
-        if self.prefecture:
-            prefecture = '{}{}/rstLst/'.format(
-                self.start_urls[0],
-                self.prefecture
-            )
-            yield scrapy.Request(
-                response.urljoin(prefecture),
-                callback=self._parse_prefecture_restaurants
-            )
-        else:
-            prefectures = response.css(selectors.prefectures).extract()
-            for prefecture in prefectures:
-                yield scrapy.Request(
-                    response.urljoin(prefecture + 'rstLst/'),
-                    callback=self._parse_prefecture_restaurants
-                )
-
-    def _parse_prefecture_restaurants(self, response):
         restaurants = response.css(selectors.restaurants).extract()
+
+        self.all_urls += restaurants
+        with open('all_urls.txt', 'w') as thefile:
+            for url in self.all_urls:
+                thefile.write("{}\n".format(url))
+
         for restaurant in restaurants:
             yield scrapy.Request(
                 response.urljoin(restaurant),
@@ -49,7 +55,7 @@ class RestaurantSpider(scrapy.Spider):
             next_page = response.urljoin(next_page)
             yield scrapy.Request(
                 next_page,
-                callback=self._parse_prefecture_restaurants
+                callback=self.parse
             )
 
     def _parse_restaurant(self, response):

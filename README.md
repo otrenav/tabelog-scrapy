@@ -117,50 +117,118 @@ is kept public.
 
 ## List of prefectures
 
-1. Aichi
-2. Akita
-3. Aomori
-4. Chiba
-5. Ehime
-6. Fukui
-7. Fukuoka
-8. Fukushim
-9. Gifu
-10. Gunm
-11. Hiroshima
-12. Hokkaido
-13. Hyogo
-14. Ibaraki
-15. Ishikawa
-16. Iwate
-17. Kagaw
-18. Kagoshima
-19. Kanagawa
-20. Kochi
-21. Kumamoto
-22. Kyoto
-23. Mie
-24. Miyag
-25. Miyazaki
-26. Nagano
-27. Nagasaki
-28. Nara
-29. Nigat
-30. Oita
-31. Okayama
-32. Okinawa
-33. Osaka
-34. Saga
-35. Saitama
-36. Shig
-37. Shimane
-38. Shizuoka
-39. Tochigi
-40. Tokushima
-41. Tokyo
-42. Tottori
-43. Toyam
-44. Wakayama
-45. Yamagata
-46. Yamaguchi
-47. Yamanashi
+The number of allowed requests before getting blocked seems to be around
+70,000 requests. Try to group your servers to not require more than that
+amount.
+
+### Group 1
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Aichi | 47,758 |
+| Akita | 6,350 |
+| Aomori | 8,250 |
+
+### Group 2
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Chiba | 30,764 |
+| Ehime | 9,424 |
+| Fukui | 6,184 |
+
+### Group 3
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Fukuoka | 34,045 |
+| Fukushima | 11,539 |
+| Gifu | 14,145 |
+
+### Group 4
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Gunma | 13,968 |
+| Hiroshima | 17,812 |
+| Hokkaido | 39,100 |
+
+### Group 5
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Hyogo | 36,096 |
+| Ibaraki | 15,317 |
+| Ishikawa | 8,694 |
+| Iwate | 7,567 |
+
+### Group 6
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Kagawa | 7,147 |
+| Kagoshima | 9,912 |
+| Kanagawa | 46,685 |
+
+### Group 7
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Kochi | 5,487 |
+| Kumamoto | 10,160 |
+| Kyoto | 21,112 |
+| Mie | 11,257 |
+| Miyagi | 14,176 |
+| Miyazaki | 7,121 |
+
+### Group 8
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Nagano | 17,366 |
+| Nagasaki | 8,395 |
+| Nara | 7,199 |
+| Niigata | 13,762 |
+| Oita | 7,931 |
+| Okayama | 11,216 |
+| Okinawa | 13,252 |
+
+### Group 9
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Osaka | 66,526 |
+| Saga | 4,929 |
+
+### Group 10
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Saitama | 33,718 |
+| Shiga | 6,732 |
+| Shimane | 4,054 |
+| Shizuoka | 25,124 |
+
+### Group 11
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Tochigi | 13,360 |
+| Tokushima | 5,254 |
+
+### Groups 12 and 13
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Tokyo | 130,632 |
+
+### Group 14
+
+| Prefecture | Number of listed restaurants |
+|------------|------------------------------|
+| Tottori | 3,638 |
+| Toyama | 6,550 |
+| Wakayama | 7,130 |
+| Yamagata | 7,642 |
+| Yamaguchi | 8,180 |
+| Yamanashi | 7,228 |
