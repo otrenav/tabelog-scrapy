@@ -80,7 +80,8 @@ class RestaurantSpider(scrapy.Spider):
         self._assert_length(features_headers, features_data, 'features')
 
         restaurant_data = {
-            k: self._first(response, v) for (k, v) in selectors.top_variables
+            k: self._first(response, v)
+            for k, v in selectors.top_variables.iteritems()
         }
 
         for idx, header in enumerate(shop_headers):
