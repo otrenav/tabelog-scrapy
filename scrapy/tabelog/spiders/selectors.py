@@ -24,7 +24,7 @@ menu_data     = "//*[@id='anchor-rd-detail']/section[3]/table/tbody/tr/td[descen
 features_data = "//*[@id='anchor-rd-detail']/section[4]/table/tbody/tr/td[descendant-or-self::text()]"
 
 # Top
-top_varibles = {
+top_variables = {
     'top_name'            : '/html/body/article/header/div[1]/div/div[1]/h2/a/text()',
     'top_prefecture'      : '/html/body/article/header/div[1]/div/div[2]/div/div/dl[1]/dd/div/p/a/span/text()',
     'top_category'        : '/html/body/article/header/div[1]/div/div[2]/div/div/dl[2]/dd/div[1]/p/a/span/text()',
