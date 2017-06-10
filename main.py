@@ -6,8 +6,8 @@ import getopt
 
 from helpers import constants
 from helpers.arguments import Arguments
-from google_cloud.cloud_storage import store_results
-from google_cloud.delete_instance import delete_instance
+from google.cloud_storage import store_results
+from google.delete_instance import delete_instance
 
 
 class Main(object):
