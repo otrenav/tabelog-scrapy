@@ -27,6 +27,7 @@ class RestaurantSpider(scrapy.Spider):
         print(len(self.start_urls))
         print(self.start_urls)
         self.all_urls = []
+        self.n_length_errors = 0
         print(50 * "*")
 
         super(RestaurantSpider, self).__init__(*args, **kwargs)
@@ -91,6 +92,10 @@ class RestaurantSpider(scrapy.Spider):
             response.xpath(selectors.features_data).extract()
         )
         self._assert_length(features_headers, features_data, 'features')
+
+        print('*' * 50)
+        print("n_length_errors: {}".format(self.n_length_errors))
+        print('*' * 50)
 
         restaurant_data = {
             'top-name': self._first(
@@ -186,6 +191,17 @@ class RestaurantSpider(scrapy.Spider):
         return(new_data_list)
 
     def _assert_length(self, headers, data, section):
+        self.n_length_errors += 1
+
+        print("-" * 50)
+        print("Section")
+        print(section)
+        print("Headers")
+        print(headers)
+        print("Data")
+        print(data)
+        print("-" * 50)
+
         if len(headers) != len(data):
             print('!' * 60)
             print(headers)
