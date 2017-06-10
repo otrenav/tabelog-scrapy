@@ -56,17 +56,17 @@ categories = [
     "RC010101",        #   Kaiseki (Traditional Japanese)
     "RC010103",        #   Kappo (Traditional Japanese)
     "RC010105",        #   Shojin Cuisine (Buddhist Cuisine)
-    "RC010104"         #   Kyoto Cuisine
+    "RC010104",         #   Kyoto Cuisine
+    "sushi",           ##  Sushi
+    "RC010201",        #   Sushi
+    "RC010202",        #   Kaitenzushi (Sushi Train)
+    "RC010203",        #   Standing style sushi
+    "seafood",         ##  Seafood
+    "RC011211",        #   Seafood
+    "RC011212",        #   Fugu (Blowfish)
+    "RC011213",        #   Crab
+    "RC011214"         #   Suppon (Soft-shelled Turtle)
 
-    # "sushi",           ##  Sushi
-    # "RC010201",        #   Sushi
-    # "RC010202",        #   Kaitenzushi (Sushi Train)
-    # "RC010203",        #   Standing style sushi
-    # "seafood",         ##  Seafood
-    # "RC011211",        #   Seafood
-    # "RC011212",        #   Fugu (Blowfish)
-    # "RC011213",        #   Crab
-    # "RC011214",        #   Suppon (Soft-shelled Turtle)
     # "RC011215",        #   Angler
     # "RC0103",          ##  Tempura, Fried Foods
     # "tempura",         #   Tempura
