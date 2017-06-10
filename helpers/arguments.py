@@ -37,8 +37,8 @@ class Arguments(object):
     @property
     def file(self):
         if self.prefecture:
-            return('{}-{}.csv'.format(self.prefecture, self.DATE))
-        return('all-prefectures-{}.csv'.format(self.DATE))
+            return('{}-{}.json'.format(self.prefecture, self.DATE))
+        return('all-prefectures-{}.json'.format(self.DATE))
 
     @property
     def scrapy_directory(self):
