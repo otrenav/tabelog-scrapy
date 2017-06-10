@@ -18,7 +18,7 @@ class Main(object):
     def execute(self):
         self._crawl_restaurants()
         self._store_results()
-        self._delete_instance()
+        # self._delete_instance()
         self._finished_message()
 
     def _crawl_restaurants(self):

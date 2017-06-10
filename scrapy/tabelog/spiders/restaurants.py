@@ -11,6 +11,7 @@ import constants
 
 class RestaurantSpider(scrapy.Spider):
 
+    n_length_errors = 0
     name = 'restaurants'
     base_url = 'https://tabelog.com/en/'
     allowed_domains = ['tabelog.com']
@@ -22,14 +23,6 @@ class RestaurantSpider(scrapy.Spider):
             for p in prefectures
             for c in constants.categories
         ]
-
-        print(50 * "*")
-        print(len(self.start_urls))
-        print(self.start_urls)
-        self.all_urls = []
-        self.n_length_errors = 0
-        print(50 * "*")
-
         super(RestaurantSpider, self).__init__(*args, **kwargs)
 
     def _get_prefectures(self, prefecture):
@@ -39,18 +32,11 @@ class RestaurantSpider(scrapy.Spider):
 
     def parse(self, response):
         restaurants = response.css(selectors.restaurants).extract()
-
-        self.all_urls += restaurants
-        with open('all_urls.txt', 'w') as thefile:
-            for url in self.all_urls:
-                thefile.write("{}\n".format(url))
-
         for restaurant in restaurants:
             yield scrapy.Request(
                 response.urljoin(restaurant),
                 callback=self._parse_restaurant
             )
-
         next_page = response.css(selectors.next_page).extract_first()
         if next_page is not None:
             next_page = response.urljoin(next_page)
@@ -93,63 +79,8 @@ class RestaurantSpider(scrapy.Spider):
         )
         self._assert_length(features_headers, features_data, 'features')
 
-        print('*' * 50)
-        print("n_length_errors: {}".format(self.n_length_errors))
-        print('*' * 50)
-
         restaurant_data = {
-            'top-name': self._first(
-                response,
-                'top_name'
-            ),
-            'top-prefecture': self._first(
-                response,
-                'top_prefecture'
-            ),
-            'top-category': self._first(
-                response,
-                'top_category'
-            ),
-            'top-subcategory-one': self._first(
-                response,
-                'top_subcategory_one'
-            ),
-            'top-subcategory-two': self._first(
-                response,
-                'top_subcategory_two'
-            ),
-            'top-telephone': self._first(
-                response,
-                'top_telephone'
-            ),
-            'top-nearest-station': self._first(
-                response,
-                'top_nearest_station'
-            ),
-            'top-overall-score': self._first(
-                response,
-                'top_overall_score'
-            ),
-            'top-night-score': self._first(
-                response,
-                'top_night_score'
-            ),
-            'top-lunch-score': self._first(
-                response,
-                'top_lunch_score'
-            ),
-            'top-budget-night': self._first(
-                response,
-                'top_budget_night'
-            ),
-            'top-budget-lunch': self._first(
-                response,
-                'top_budget_lunch'
-            ),
-            'top-comments': self._first(
-                response,
-                'top_comments'
-            )
+            k: self._first(response, v) for (k, v) in selectors.top_variables
         }
 
         for idx, header in enumerate(shop_headers):
@@ -165,6 +96,31 @@ class RestaurantSpider(scrapy.Spider):
             restaurant_data['features-' + header] = features_data[idx]
 
         restaurant_data['url'] = response.url
+
+        if response.url == 'https://tabelog.com/en/aichi/A2304/A230401/23022354/':
+            print('*' * 50)
+            print('*' * 50)
+            print('*' * 50)
+            print('*' * 50)
+            print("Restaurant")
+            print(restaurant_data)
+            print('-' * 50)
+            print("Shop")
+            print(shop_headers)
+            print(shop_data)
+            print("Seats")
+            print(seats_headers)
+            print(seats_data)
+            print("Menu")
+            print(menu_headers)
+            print(menu_data)
+            print("Features")
+            print(features_headers)
+            print(features_data)
+            print('*' * 50)
+            print('*' * 50)
+            print('*' * 50)
+            print('*' * 50)
 
         yield restaurant_data
 
@@ -191,22 +147,19 @@ class RestaurantSpider(scrapy.Spider):
         return(new_data_list)
 
     def _assert_length(self, headers, data, section):
-        self.n_length_errors += 1
-
-        print("-" * 50)
-        print("Section")
-        print(section)
-        print("Headers")
-        print(headers)
-        print("Data")
-        print(data)
-        print("-" * 50)
 
         if len(headers) != len(data):
-            print('!' * 60)
+            self.n_length_errors += 1
+
+            print("!" * 50)
+            print("Section")
+            print(section)
+            print("Headers (length: {})".format(len(headers)))
             print(headers)
+            print("Data (length: {})".format(len(data)))
             print(data)
-            print('!' * 60)
+            print("!" * 50)
+
             raise ValueError(
                 'Headers and data for ' +
                 '{0} have different lengths ({1} vs {2})'.format(
@@ -215,5 +168,4 @@ class RestaurantSpider(scrapy.Spider):
             )
 
     def _first(self, response, selector):
-        selector = getattr(selectors, selector)
         return(response.xpath(selector).extract_first())
