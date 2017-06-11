@@ -11,7 +11,6 @@ import constants
 
 class RestaurantSpider(scrapy.Spider):
 
-    n_restaurants = 0
     n_length_errors = 0
     name = 'restaurants'
     base_url = 'https://tabelog.com/en/'
@@ -98,62 +97,6 @@ class RestaurantSpider(scrapy.Spider):
             restaurant_data['features-' + header] = features_data[idx]
 
         restaurant_data['url'] = response.url
-
-        if self.n_restaurants == 1:
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-            print("FIRST RESTAURANT")
-            print("Restaurant")
-            print(restaurant_data.keys())
-            print(restaurant_data)
-            print('-' * 50)
-            print("Shop")
-            print(shop_headers)
-            print(shop_data)
-            print("Seats")
-            print(seats_headers)
-            print(seats_data)
-            print("Menu")
-            print(menu_headers)
-            print(menu_data)
-            print("Features")
-            print(features_headers)
-            print(features_data)
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-
-        self.n_restaurants += 1
-
-        if response.url == 'https://tabelog.com/en/aichi/A2304/A230401/23022354/':
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-            print("INTERESTING URL")
-            print("Restaurant")
-            print(restaurant_data.keys())
-            print(restaurant_data)
-            print('-' * 50)
-            print("Shop")
-            print(shop_headers)
-            print(shop_data)
-            print("Seats")
-            print(seats_headers)
-            print(seats_data)
-            print("Menu")
-            print(menu_headers)
-            print(menu_data)
-            print("Features")
-            print(features_headers)
-            print(features_data)
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
-            print('*' * 50)
 
         yield restaurant_data
 
