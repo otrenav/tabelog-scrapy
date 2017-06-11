@@ -56,7 +56,7 @@ categories = [
     "RC010101",        #   Kaiseki (Traditional Japanese)
     "RC010103",        #   Kappo (Traditional Japanese)
     "RC010105",        #   Shojin Cuisine (Buddhist Cuisine)
-    "RC010104",         #   Kyoto Cuisine
+    "RC010104",        #   Kyoto Cuisine
     "sushi",           ##  Sushi
     "RC010201",        #   Sushi
     "RC010202",        #   Kaitenzushi (Sushi Train)
