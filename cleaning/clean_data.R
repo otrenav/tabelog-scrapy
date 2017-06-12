@@ -9,16 +9,16 @@ library(stringr)
 
 print("Reading data...")
 
-file_name <- "~/Downloads/group-14-2017-04-14.csv"
+file_name <- "~/Downloads/group-1-2017-06-11.csv"
 
 data <- read.csv(file_name)
 
 print("Cleaning data...")
 
 ##
-## Seems only `top.nearest.station` and `top.telephone` require cleaning
+## Seems that only these columns requiring whitespace cleaning
 ##
-data$top.nearest.station <- gsub("\n", "", data$top.nearest.station)
+data$top.nearest_station <- gsub("\n", "", data$top.nearest_station)
 data$top.telephone       <- gsub("\n", "", data$top.telephone)
 
 for (column in colnames(data)) {
