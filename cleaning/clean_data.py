@@ -11,6 +11,7 @@ print("Reading data...")
 
 data = pandas.read_json(
     "~/Downloads/group-14.json"
+    encoding="utf-8"
 )
 
 print("Saving data...")

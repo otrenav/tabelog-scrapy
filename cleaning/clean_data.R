@@ -20,7 +20,7 @@ data <- read.csv(
 print("Cleaning data...")
 
 ##
-## Seems only `top.nearest.station` and `top.telephone` require cleaning
+## Seems that only these columns requiring whitespace cleaning
 ##
 data$top.nearest_station <- gsub("\n", "", data$top.nearest_station)
 data$top.telephone       <- gsub("\n", "", data$top.telephone)
