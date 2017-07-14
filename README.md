@@ -1,11 +1,20 @@
+
+| [Website](http://links.otrenav.com/website) | [Twitter](http://links.otrenav.com/twitter) | [LinkedIn](http://links.otrenav.com/linkedin)  | [GitHub](http://links.otrenav.com/github) | [GitLab](http://links.otrenav.com/gitlab) | [CodeMentor](http://links.otrenav.com/codementor) |
+
+---
+
 # Tabelog Scrapy with Google Compute Engine (GCE)
 
+- Omar Trejo
+- February, 2017
+- For Dr. Kensuke Teshima
+
 This repository contains scraping code for a Tabelog (www.tabelog.com/en/)
-using either a local environment or a Google Compute Engine (GCE) instance. 
+using either a local environment or a Google Compute Engine (GCE) instance.
 It's implemented using Python 2.7 and designed to work on Ubuntu 16.04.
 
 The idea is to not depend on various laptops locally to be able to scrape
-results from Tabelog without getting blocked (due to the amount of requests). 
+results from Tabelog without getting blocked (due to the amount of requests).
 To achieve this, the approach is to run the code for each prefecture whose
 data we want in a new GCE instance. Each new GCE instance gets a new and
 different IP, so IP-blocks from Tabelog can be handled this way. Each GCE
@@ -232,3 +241,9 @@ amount.
 | Yamagata | 7,642 |
 | Yamaguchi | 8,180 |
 | Yamanashi | 7,228 |
+
+---
+
+> "The best ideas are common property."
+>
+> —Seneca
