@@ -9,16 +9,20 @@ library(stringr)
 
 print("Reading data...")
 
-file_name <- "~/Downloads/group-14-2017-04-14.csv"
+file_name <- "~/Downloads/group-14.csv"
 
-data <- read.csv(file_name)
+data <- read.csv(
+    file_name,
+    stringsAsFactors = FALSE,
+    na.strings = c("", " ", "NA")
+)
 
 print("Cleaning data...")
 
 ##
 ## Seems only `top.nearest.station` and `top.telephone` require cleaning
 ##
-data$top.nearest.station <- gsub("\n", "", data$top.nearest.station)
+data$top.nearest_station <- gsub("\n", "", data$top.nearest_station)
 data$top.telephone       <- gsub("\n", "", data$top.telephone)
 
 for (column in colnames(data)) {

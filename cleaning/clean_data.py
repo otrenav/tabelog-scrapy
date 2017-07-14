@@ -10,13 +10,13 @@ import pandas
 print("Reading data...")
 
 data = pandas.read_json(
-    "~/Downloads/aichi-2017-06-10.json"
+    "~/Downloads/group-14.json"
 )
 
 print("Saving data...")
 
 data.to_csv(
-    "~/Downloads/aichi-2017-06-10_json.csv",
+    "~/Downloads/group-14.csv",
     encoding="utf-8",
     index=False
 )
