@@ -11,7 +11,10 @@
 
 This repository contains scraping code for a Tabelog (www.tabelog.com/en/)
 using either a local environment or a Google Compute Engine (GCE) instance.
-It's implemented using Python 2.7 and designed to work on Ubuntu 16.04.
+It's implemented using Python 2.7 and designed to work on Ubuntu 16.04. There
+are 14 branches in total, where each branch contains a different subset of the
+pages that need to be scrapped such that Tabelog's blocking mechanism is not
+activated.
 
 The idea is to not depend on various laptops locally to be able to scrape
 results from Tabelog without getting blocked (due to the amount of requests).
@@ -25,10 +28,6 @@ Cloud Storage (GCS) bucket within the same Google Cloud project.
 The code is also able to run locally. If only a few prefectures are needed
 this may be the best approach. If for some reason the laptop's IP gets
 blocked, you may fallback to the GCE approach.
-
-- Developed by Omar Trejo
-- Developed for Dr. Teshima
-- March, 2017
 
 ## Instructions
 
@@ -241,6 +240,10 @@ amount.
 | Yamagata | 7,642 |
 | Yamaguchi | 8,180 |
 | Yamanashi | 7,228 |
+
+TODOs:
+
+- Combine cleaning procedures into single process
 
 ---
 
