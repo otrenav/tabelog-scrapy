@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-BUCKET = 'restaurant-scraping-results'
+BUCKET = 'tabelog-scraping-results'
 
 OPTIONS = ['project=', 'instance=', 'zone=', 'prefecture=']
 
