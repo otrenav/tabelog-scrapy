@@ -17,13 +17,17 @@ class Main(object):
 
     def execute(self):
         self._crawl_restaurants()
-        self._store_results()
-        self._delete_instance()
+        if self._in_google_cloud():
+            self._store_results()
+            self._delete_instance()
         self._finished_message()
 
     def _crawl_restaurants(self):
         os.chdir(self.arguments.scrapy_directory)
         os.system(self._scrapy_command())
+
+    def _in_google_cloud(self):
+        return self.arguments.project is not None
 
     def _store_results(self):
         store_results(self.arguments)
@@ -32,10 +36,21 @@ class Main(object):
         delete_instance(self.arguments)
 
     def _scrapy_command(self):
-        if self.arguments.prefecture:
-            return('{} -a prefecture={}'.format(
+        if self.arguments.prefectures and not self.arguments.category_groups:
+            return('{} -a prefectures={}'.format(
                 self.arguments.scrapy_command,
                 self.arguments.prefecture
+            ))
+        elif not self.arguments.prefectures and self.arguments.category_groups:
+            return('{} -a category_groups={}'.format(
+                self.arguments.scrapy_command,
+                self.arguments.category_groups
+            ))
+        elif self.arguments.prefectures and self.arguments.category_groups:
+            return('{} -a prefectures={} -a category_groups={}'.format(
+                self.arguments.scrapy_command,
+                self.arguments.prefectures,
+                self.arguments.category_groups
             ))
         return(self.arguments.scrapy_command)
 

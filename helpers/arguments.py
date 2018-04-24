@@ -17,7 +17,7 @@ class Arguments(object):
 
     @property
     def project(self):
-        return(self.arguments['--project'])
+        return(self.arguments.get('--project', None))
 
     @property
     def zone(self):
@@ -28,17 +28,32 @@ class Arguments(object):
         return(self.arguments['--instance'])
 
     @property
-    def prefecture(self):
-        prefecture = self.arguments.get('--prefecture', None)
-        if prefecture:
-            return(prefecture.lower())
-        return(prefecture)
+    def prefectures(self):
+        prefectures = self.arguments.get('--prefectures', None)
+        if prefectures:
+            return(prefectures.lower())
+        return(prefectures)
+
+    def _prefectures_slug(self):
+        prefectures = 'all-prefectures'
+        if self.prefectures:
+            prefectures = self.prefectures.replace(',', '-')
+        return(prefectures)
+
+    @property
+    def category_groups(self):
+        return(self.arguments.get('--category_groups', None))
+
+    def _category_groups_slug(self):
+        category_groups = 'all-categories'
+        if self.category_groups:
+            category_groups = self.category_groups.replace(',', '-')
+        return(category_groups)
 
     @property
     def file(self):
-        if self.prefecture:
-            return('{}-{}.json'.format(self.prefecture, self.DATE))
-        return('all-prefectures-{}.json'.format(self.DATE))
+        return('{}-{}-{}.json'.format(
+            self.DATE, self._prefectures_slug(), self._category_groups_slug()))
 
     @property
     def scrapy_directory(self):

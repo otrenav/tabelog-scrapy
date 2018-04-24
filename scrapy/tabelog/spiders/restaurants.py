@@ -16,19 +16,30 @@ class RestaurantSpider(scrapy.Spider):
     base_url = 'https://tabelog.com/en/'
     allowed_domains = ['tabelog.com']
 
-    def __init__(self, prefecture=None, *args, **kwargs):
-        prefectures = self._get_prefectures(prefecture)
+    def __init__(self, prefectures=None, category_groups=None, *args, **kwargs):
+        prefectures = self._get_prefectures(prefectures)
         self.start_urls = [
             '{}{}/rstLst/{}/?SrtT=rt&Srt=D'.format(self.base_url, p, c)
             for p in prefectures
-            for c in constants.categories
+            for c in self._get_categories(category_groups)
         ]
         super(RestaurantSpider, self).__init__(*args, **kwargs)
 
-    def _get_prefectures(self, prefecture):
-        if prefecture:
-            return([prefecture])
+    def _get_prefectures(self, prefectures):
+        if prefectures:
+            return(prefectures.split(','))
         return(constants.prefectures)
+
+    def _get_categories(self, category_groups):
+        if category_groups:
+            chosen = category_groups.split(',')
+        else:
+            chosen = list(constants.categories.keys())
+        categories = []
+        for c in list(constants.categories.keys()):
+            if c in chosen:
+                categories += constants.categories[c]
+        return(categories)
 
     def parse(self, response):
         restaurants = response.css(selectors.restaurants).extract()
