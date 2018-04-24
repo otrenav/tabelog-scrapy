@@ -39,7 +39,7 @@ class Main(object):
         if self.arguments.prefectures and not self.arguments.category_groups:
             return('{} -a prefectures={}'.format(
                 self.arguments.scrapy_command,
-                self.arguments.prefecture
+                self.arguments.prefectures
             ))
         elif not self.arguments.prefectures and self.arguments.category_groups:
             return('{} -a category_groups={}'.format(
