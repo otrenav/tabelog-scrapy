@@ -9,25 +9,25 @@
 - February, 2017
 - For Dr. Kensuke Teshima
 
-This repository contains scraping code for a Tabelog (www.tabelog.com/en/)
-using either a local environment or a Google Compute Engine (GCE) instance.
-It's implemented using Python 2.7 and designed to work on Ubuntu 16.04. There
-are 14 branches in total, where each branch contains a different subset of the
-pages that need to be scrapped such that Tabelog's blocking mechanism is not
+This repository contains scraping code for a Tabelog (www.tabelog.com/en/) using
+either a local environment or a Google Compute Engine (GCE) instance. It's
+implemented using Python 2.7 and designed to work on Ubuntu 16.04. There are 14
+branches in total, where each branch contains a different subset of the pages
+that need to be scrapped such that Tabelog's blocking mechanism is not
 activated.
 
 The idea is to not depend on various laptops locally to be able to scrape
-results from Tabelog without getting blocked (due to the amount of requests).
-To achieve this, the approach is to run the code for each prefecture whose
-data we want in a new GCE instance. Each new GCE instance gets a new and
-different IP, so IP-blocks from Tabelog can be handled this way. Each GCE
-is automatically turned off after it's scraping task is finished, to keep
-the data even after the instance no longer exists, it is sent to a Google
-Cloud Storage (GCS) bucket within the same Google Cloud project.
+results from Tabelog without getting blocked (due to the amount of requests). To
+achieve this, the approach is to run the code for each prefecture whose data we
+want in a new GCE instance. Each new GCE instance gets a new and different IP,
+so IP-blocks from Tabelog can be handled this way. Each GCE is automatically
+turned off after it's scraping task is finished, to keep the data even after the
+instance no longer exists, it is sent to a Google Cloud Storage (GCS) bucket
+within the same Google Cloud project.
 
-The code is also able to run locally. If only a few prefectures are needed
-this may be the best approach. If for some reason the laptop's IP gets
-blocked, you may fallback to the GCE approach.
+The code is also able to run locally. If only a few prefectures are needed this
+may be the best approach. If for some reason the laptop's IP gets blocked, you
+may fallback to the GCE approach.
 
 ## Instructions
 
@@ -61,62 +61,74 @@ blocked, you may fallback to the GCE approach.
          manually in the terminal. This is just to make it easier.
 3. Execute main function:
    - `$ python main.py ...` (see usage section)
+4. Process results:
+   - `$ cd process_results/`
+   - `$ bash process_results.sh`
 
 ## Usage
 
 ### Local environment
 
-`$ python main.py --prefecture=<prefecture>`
+`$ python main.py --prefectures=<prefecture>,...,<prefecture> --category_groups=1,2,3,4`
 
-The `prefecture` argument is optional. If it's not supplied all
-prefectures will be scrapped automatically. The results will be
-saved within the `scrapy/` diectory, and the name will depend
-on the date and whether or not a specific prefecture was chosen.
-If no prefecture was chosen, the string `all-prefectures` will
-be prepended. If a prefecture was chosen, it's name in lowercase
-will be prepended.
+The `prefectures` argument must receive a list separated by commas and without
+spaces, with the desired prefecture names, in lower case. Most of the time these
+should be taken from the groups in the *List of prefectures* below. The
+`category_groups` parameter (optional) must receive a list separated by commas
+and without spaces, of the group numbers in the `constants.py` file. The purpose
+of these groups is to split the number of results to be retrieved into groups to
+avoid being blocked by Tabelog. This is useful in the case of Tokyo, where there
+are more than 70,000 restaurants (which seems to be the limit of allowed scraped
+results from a single IP). If the `cateogry_groups` parameter is not provided,
+all groups will be scraped for the given prefectures.
 
 ### Google Compute Engine
 
-To be able to turn off the instance automatically after finishing
-scraping, we need to specify the `project`, `zone`, and `instance`
-names chosen when creating the instance. This will be sent to the
-`main` file as such:
+To be able to turn off the instance automatically after finishing scraping, we
+need to specify the `project`, `zone`, and `instance` names chosen when creating
+the instance. This will be sent to the `main` file as such:
 
 ```
-$ python main.py --prefecture=<prefecture>
+$ python main.py --prefectures=<prefecture>,...,<prefecture>
+                 --category_groups=1,2,3,4
                  --project=<google_cloud_project>
                  --zone=<google_cloud_zone>
                  --instance=<google_cloud_instance>
 ```
 
-The `prefecture` argument is optional. If it's not supplied all
-prefectures will be scrapped automatically. Save name conventions
-as in the Local Environment case apply. However the data will be
-saved to a GCS bucket. It will be stored under the same project
-in Google Cloud.
+The `prefecture` argument is optional. If it's not supplied all prefectures will
+be scrapped automatically. Save name conventions as in the Local Environment
+case apply. However the data will be saved to a GCS bucket. It will be stored
+under the same project in Google Cloud.
 
-The `project`, `zone`, and `instance` names are optional (even if
-working inside a GCE). If we're in a GCE instance but these parameters
-are not supplied, the code will execute as if it were inside a local
-environment, and no GCE instance deletion will occur. If one of these
-parameters is supplied, all must be supplied. If this is the case
-the data will sill be saved within the same Google Cloud project, but
-the instance will remain turned on until manually deleted. This may
-increase billing and is not recommended.
+The `project`, `zone`, and `instance` names are optional (even if working inside
+a GCE). If we're in a GCE instance but these parameters are not supplied, the
+code will execute as if it were inside a local environment, and no GCE instance
+deletion will occur. If one of these parameters is supplied, all must be
+supplied. If this is the case the data will sill be saved within the same Google
+Cloud project, but the instance will remain turned on until manually deleted.
+This may increase billing and is not recommended.
 
 > Warning: Google Cloud arguments are not checked to be valid
 > within so you must be careful they are correct when using them.
 
+### Process the results
+
+Processing the results will save all the JSON files in the `./inputs/json/`
+directory into the `./inputs/csv/raw/` as CSVs. Then it will process each of them
+and save its clean version in `./inputs/csv/clean/`. Finally, it will take all
+of those CSVs, join them, and save them into a single file in
+`./outputs/data.csv`. An analysis script will also be executed, which will
+create the final two files with diagnosis around the `data.csv` file.
+
 ## Making the repository private
 
-This repository is currently public so that we can clone it within the
-GCE instance without having to make any configurations regardin SSH
-keys. However, if we would like to keep the repository private, it can
-be done and we would have to make an extra setup step for each GCE
-instance. Since this is not desired to keep the code as easy to use
-as possible, it's not currently implemented this way, and the repository
-is kept public.
+This repository is currently public so that we can clone it within the GCE
+instance without having to make any configurations regardin SSH keys. However,
+if we would like to keep the repository private, it can be done and we would
+have to make an extra setup step for each GCE instance. Since this is not
+desired to keep the code as easy to use as possible, it's not currently
+implemented this way, and the repository is kept public.
 
 ## Resources
 
@@ -125,9 +137,8 @@ is kept public.
 
 ## List of prefectures
 
-The number of allowed requests before getting blocked seems to be around
-70,000 requests. Try to group your servers to not require more than that
-amount.
+The number of allowed requests before getting blocked seems to be around 70,000
+requests. Try to group your servers to not require more than that amount.
 
 ### Group 1
 
@@ -240,10 +251,6 @@ amount.
 | Yamagata | 7,642 |
 | Yamaguchi | 8,180 |
 | Yamanashi | 7,228 |
-
-TODOs:
-
-- Combine cleaning procedures into single process
 
 ---
 
